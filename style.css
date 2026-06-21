@@ -162,17 +162,17 @@ h1{
     transition: all 0.5s ease;
 }
 .hadiah-letter{
-    background-image: url('/img/webp/surat.webp');
+    background-image: url('img/webp/surat.webp');
     background-size: cover;
     background-position: center;
 }
 .hadiah-music {
-    background-image: url('/img/webp/musik.webp');
+    background-image: url('img/webp/musik.webp');
     background-size: cover;
     background-position: center;
 }
 .hadiah-memory {
-    background-image: url('/img/webp/kenangan.webp');
+    background-image: url('img/webp/kenangan.webp');
     background-size: cover;
     background-position: center;
 }
