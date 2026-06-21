@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hadiah Ulang Tahun Hilal yang ke 18</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body class="memory-page">
+    <h1>
+        Kenangan Kita Bersama
+    </h1>
+    <div class="main-memory">
+        <div class="juni memory-container">
+            <h3>
+                17 Juni 2026
+            </h3>
+            <div class="memory-item-container">
+                <img src="img/webp/wisuda/1.webp" alt="" class="memory-item">
+                <img src="img/webp/wisuda/2.webp" alt="" class="memory-item">
+                <img src="img/webp/wisuda/3.webp" alt="" class="memory-item">
+                <img src="img/webp/wisuda/4.webp" alt="" class="memory-item">
+            </div>
+        </div>
+        <div class="mei memory-container">
+            <h3>
+                31 Mei 2026
+            </h3>
+            <div class="memory-item-container">
+                <img src="img/webp/mei/1.webp" alt="" class="memory-item">
+                <img src="img/webp/mei/2.webp" alt="" class="memory-item">
+                <img src="img/webp/mei/3.webp" alt="" class="memory-item">
+                <img src="img/webp/mei/4.webp" alt="" class="memory-item">
+            </div>
+        </div>
+        <div class="ukk memory-container">
+            <h3>
+                After UKK
+            </h3>
+            <div class="memory-item-container">
+                <img src="img/webp/ukk/1.webp" alt="" class="memory-item">
+                <img src="img/webp/ukk/2.webp" alt="" class="memory-item">
+                <img src="img/webp/ukk/3.webp" alt="" class="memory-item">
+                <img src="img/webp/ukk/4.webp" alt="" class="memory-item">
+            </div>
+        </div>
+        <div class="sidang memory-container">
+            <h3>
+                After Sidang
+            </h3>
+            <div class="memory-item-container">
+                <img src="img/webp/sidang/1.webp" alt="" class="memory-item">
+                <img src="img/webp/sidang/2.webp" alt="" class="memory-item">
+                <img src="img/webp/sidang/3.webp" alt="" class="memory-item">
+                <img src="img/webp/sidang/4.webp" alt="" class="memory-item">
+            </div>
+        </div>
+        <div class="beforePKL memory-container">
+            <h3>
+                Before PKL
+            </h3>
+            <div class="memory-item-container">
+                <img src="img/webp/beforePKKL/1.webp" alt="" class="memory-item">
+                <img src="img/webp/beforePKKL/2.webp" alt="" class="memory-item">
+                <img src="img/webp/beforePKKL/3.webp" alt="" class="memory-item">
+                <img src="img/webp/beforePKKL/4.webp" alt="" class="memory-item">
+                <img src="img/webp/beforePKKL/5.webp" alt="" class="memory-item">
+                <img src="img/webp/beforePKKL/6.webp" alt="" class="memory-item">
+                <img src="img/webp/beforePKKL/7.webp" alt="" class="memory-item">
+                <img src="img/webp/beforePKKL/8.webp" alt="" class="memory-item">
+            </div>
+        </div>
+        <a href="hadiah.html" class="btn">
+            Kembali
+        </a>
+    </div>
+
+    <div class="lightbox" id="lightbox">
+        <span class="close"><i class="fa-solid fa-xmark"></i></span>
+        <button class="prev"><i class="fa-solid fa-angle-left"></i></button>
+        <img src="" alt="" id="lightbox-img">
+        <button class="next"><i class="fa-solid fa-angle-right"></i></button>
+    </div>
+
+    <script>
+        const images = document.querySelectorAll(".memory-item");
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImg = document.getElementById("lightbox-img");
+        const prev = document.querySelector(".prev");
+        const next = document.querySelector(".next");
+
+        let currentIndex = 0;
+
+        function showImage(index){
+            lightboxImg.src = images[index].src;
+        }
+
+        images.forEach(img => {
+            img.addEventListener("click", () => {
+                lightbox.classList.add("show");
+                lightboxImg.src = img.src;
+            });
+        });
+
+        next.addEventListener("click", (e) => {
+            e.stopPropagation();
+            currentIndex++;
+            if(currentIndex >= images.length){
+                currentIndex = 0;
+            }
+            showImage(currentIndex);
+        });
+
+        prev.addEventListener("click", (e) => {
+            e.stopPropagation();
+            currentIndex--;
+            if(currentIndex < 0){
+                currentIndex = images.length - 1;
+            }
+            showImage(currentIndex);
+        });
+
+        document.addEventListener("keydown", (e)=>{
+            if(!lightbox.classList.contains("show")) return;
+            if(e.key === "ArrowRight"){
+                next.click();
+            }
+            if(e.key === "ArrowLeft"){
+                prev.click();
+            }
+            if(e.key === "Escape"){
+                lightbox.classList.remove("show");
+            }
+        });
+
+        let startX = 0;
+        lightbox.addEventListener("touchstart", e=>{
+            startX = e.touches[0].clientX;
+        });
+        lightbox.addEventListener("touchend", e=>{
+            let endX = e.changedTouches[0].clientX;
+            if(startX - endX > 50){
+                next.click();
+            }
+            if(endX - startX > 50){
+                prev.click();
+            }
+        });
+
+        lightbox.addEventListener("click", (e) => {
+
+            // kalau klik gambar jangan ditutup
+            if(e.target === lightboxImg) return;
+
+            lightbox.classList.remove("show");
+        });
+    </script>
+    <script src="https://kit.fontawesome.com/f27188bb3d.js" crossorigin="anonymous"></script>
+</body>
+</html>

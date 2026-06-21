@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hadiah Ulang Tahun Hilal yang ke 18</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Upright:wght@300;400;500;600;700&family=Dancing+Script:wght@400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body class="musik-page">
+    <h1>
+        Lagu Untuk Hilal
+    </h1>
+    <div class="player" id="playerSect">
+        <div class="container-cover" id="containerCover">
+            <img id="cover" src="" alt="Cover">
+        </div>
+        <div class="music">
+            <div class="music-title">
+                <h2 id="title"></h2>
+                <p id="artist"></p>
+            </div>
+            <div class="time">
+                <div id="currentTime">0:00</div>
+                <input
+                    type="range"
+                    id="progress"
+                    value="0"
+                    min="0"
+                    max="100">
+                <div id="duration">0:00</div>
+            </div>
+            <div class="controls">
+                <button id="prev"><i class="fa-solid fa-backward-step"></i></button>
+                <button id="play"><i class="fa-solid fa-play"></i></button>
+                <button id="next"><i class="fa-solid fa-forward-step"></i></button>
+            </div>
+            <div class="pesan">
+                <h3 id="isiPesan">
+                </h3>
+            </div>
+            <audio id="audio"></audio>
+        </div>
+    </div>
+    <a href="hadiah.html" class="btn">
+        <i class="fa-solid fa-circle-arrow-left""></i> Kembali  
+    </a>
+
+    <script>
+        const playlist = [
+        {
+            title: "Monokrom",
+            artist: "Tulus",
+            src: "lagu/Tulus-Monokrom.mp3",
+            cover: "img/webp/monokrom.webp",
+            isiPesan: "'Terima kasih yaa sudahh bertahan sejauhh inii'",
+            background: "img/webp/bg-pink.webp",
+            color: "#F9A8D4"
+        },
+        {
+            title: "Manusia Kuat",
+            artist: "Tulus",
+            src: "lagu/Tulus-Manusia-Kuat.mp3",
+            cover: "img/webp/manusia-kuat.webp",  
+            isiPesan: "'Semangatt menjalani hari-hari yang beratt ituu yaaa'",
+            background: "img/webp/bg-hijau.webp",
+            color: "#009b22"
+        },
+        {
+            title: "Nanti Kita Seperti Ini",
+            artist: "Batas Senja",
+            src: "lagu/Batas_Senja-Nanti-Kita-Seperti-Ini.mp3",
+            cover: "img/webp/nanti-kita-seperti-ini.webp",  
+            isiPesan: "'Semogaa mimpii kamuu tercapai yaaa, aaminnn'",
+            background: "img/webp/bg-coklat.webp",
+            color: "#eeb869c3"
+        },
+        {
+            title: "Sorai",
+            artist: "Nadin Amizah",
+            src: "lagu/Nadin_Amizah-Sorai.mp3",
+            cover: "img/webp/sorai.webp",  
+            isiPesan: "'Selamatt ulang tahunn, nambahh tuaa nihh, nikmatin jalannyaa yaaa'",
+            background: "img/webp/bg-star.webp",
+            color: "#485d80"
+        },
+    ];
+
+    const audio = document.getElementById("audio");
+    const cover = document.getElementById("cover");
+    const title = document.getElementById("title");
+    const artist = document.getElementById("artist");
+    const isiPesan = document.getElementById("isiPesan");
+
+    const containerCover = document.getElementById("containerCover");
+    const playerSect = document.getElementById("playerSect");
+
+    const playBtn = document.getElementById("play");
+    const nextBtn = document.getElementById("next");
+    const prevBtn = document.getElementById("prev");
+
+    const progress = document.getElementById("progress");
+
+    const currentTime = document.getElementById("currentTime");
+    const duration = document.getElementById("duration");
+
+    let currentSong = 0;
+
+    function loadSong(index){
+
+        audio.src = playlist[index].src;
+        cover.src = playlist[index].cover;
+
+        title.textContent = playlist[index].title;
+        artist.textContent = playlist[index].artist;
+        isiPesan.textContent = playlist[index].isiPesan;
+
+        containerCover.style.backgroundImage = `url('${playlist[index].background}')`;
+        playerSect.style.backgroundColor = playlist[index].color;
+
+        progress.value = 0;
+
+    }
+
+    loadSong(currentSong);
+
+    function playSong(){
+
+        audio.play();
+        cover.classList.add("playing");
+        playBtn.innerHTML = "<i class='fa-solid fa-pause'></i>";
+
+    }
+
+    function pauseSong(){
+
+        audio.pause();
+        cover.classList.remove("playing");
+        playBtn.innerHTML = "<i class='fa-solid fa-play'></i>";
+
+    }
+
+    function changeSong(index){
+        pauseSong();
+
+        cover.classList.add("fade");
+        setTimeout(() => {
+            currentSong = index;
+            loadSong(currentSong);
+            resetRotation();
+            cover.classList.remove("fade");
+            playSong();
+        }, 300);
+
+    }
+
+    function resetRotation(){
+        cover.classList.remove("playing");
+        cover.style.animation = "none";
+        cover.offsetHeight;
+        cover.style.animation = "";
+    }
+
+    playBtn.addEventListener("click",()=>{
+
+        if(audio.paused){
+
+            playSong();
+
+        }else{
+
+            pauseSong();
+
+        }
+
+    });
+
+    nextBtn.addEventListener("click",()=>{
+
+        currentSong++;
+
+        if(currentSong >= playlist.length){
+
+            currentSong = 0;
+
+        }
+
+        changeSong(currentSong);
+
+    });
+
+    prevBtn.addEventListener("click",()=>{
+
+        currentSong--;
+
+        if(currentSong < 0){
+
+            currentSong = playlist.length-1;
+
+        }
+
+        changeSong(currentSong);
+
+    });
+
+    audio.addEventListener("ended",()=>{
+
+        currentSong++;
+
+        if(currentSong >= playlist.length){
+
+            currentSong = 0;
+
+        }
+
+        changeSong(currentSong);
+
+    });
+
+    audio.addEventListener("loadedmetadata",()=>{
+
+        duration.textContent = formatTime(audio.duration);
+
+    });
+
+    audio.addEventListener("timeupdate",()=>{
+
+        progress.value = (audio.currentTime / audio.duration) * 100;
+
+        currentTime.textContent = formatTime(audio.currentTime);
+
+    });
+
+    progress.addEventListener("input",()=>{
+
+        audio.currentTime = (progress.value / 100) * audio.duration;
+
+    });
+
+    function formatTime(time){
+
+        const minute = Math.floor(time / 60);
+        const second = Math.floor(time % 60);
+
+        return `${minute}:${second.toString().padStart(2,"0")}`;
+
+    }
+    </script>
+
+    <script src="https://kit.fontawesome.com/f27188bb3d.js" crossorigin="anonymous"></script>
+</body>
+</html>
