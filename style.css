@@ -162,17 +162,17 @@ h1{
     transition: all 0.5s ease;
 }
 .hadiah-letter{
-    background-image: url('/img/surat.jpg');
+    background-image: url('/img/webp/surat.webp');
     background-size: cover;
     background-position: center;
 }
 .hadiah-music {
-    background-image: url('/img/musik.jpg');
+    background-image: url('/img/webp/musik.webp');
     background-size: cover;
     background-position: center;
 }
 .hadiah-memory {
-    background-image: url('/img/kenangan.jpg');
+    background-image: url('/img/webp/kenangan.webp');
     background-size: cover;
     background-position: center;
 }
@@ -327,6 +327,16 @@ h1{
     min-height: 100vh;
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-content: center;
+    animation: fadeUp 0.5s ease;
+}
+.musik-page h1{
+    text-align: center;
+    font-size: 56px;
+    position: absolute;
+    top: 2%;
+    left: 38%;
 }
 .player{
     border-radius: 20px;
@@ -338,7 +348,6 @@ h1{
     background-color: #485d80;
     width: 55%;
     justify-content: space-between;
-    align-self: center;
     min-height: 60vh;
 }
 .player #cover{
@@ -358,7 +367,7 @@ h1{
 .player .container-cover {
     display: flex;
     border-radius: 20px 0px 0px 20px;
-    background-image: url(img/bg-pink.jpg);
+    background-image: url(img/webp/bg-pink.webp);
     background-position: center;
     background-size: cover;
 }
@@ -418,7 +427,169 @@ h1{
     justify-self: center;
     text-align: center;
 }
+#progress {
+    accent-color: black;
+}
+.musik-page .btn{
+    text-decoration: none;
+    font-family: "Montserrat";
+    color: #485d80;
+    background-color: #F9A8D4;
+    width: max-content;
+    padding: 10px;
+    justify-content: center;
+    align-self: center;
+    margin: 10px;
+    border-radius: 20px;
+    border: 1px solid transparent;
+    transition: all ease 0.3s;
+}
+.musik-page .btn:hover{
+    background-color: transparent;
+    border: 1px solid #485d80;
+}
 
+/* Kenangan */
+.memory-page {
+    width: 100%;
+    animation: fadeUp 0.5s ease;
+}
+.memory-page h1{
+    font-size: 56px;
+    text-align: center;
+}
+.memory-page h3{
+    font-family: 'Montserrat';
+    border-bottom: 2px solid #4B5563;
+    padding-left: 10px;
+    color: #4B5563;
+    padding-bottom: 10px;
+    font-weight: 500;
+    font-size: 24px;
+    font-style: italic;
+}
+.main-memory{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-self: center;
+    justify-self: center;
+}
+.memory-container{
+    margin: 10px;
+    width: 90%;
+    padding: 20px;
+    background-color: #F9A8D4;
+    border-radius: 20px;
+    position: relative;
+    box-shadow: 5px 5px 0px #485d80;
+}
+.memory-item-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-auto-rows: 300px;
+    gap: 20px;
+}
+.memory-item-container img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 20px;
+    box-shadow: 0px 0px 5px black;
+}
+.beforePKL .memory-item-container{
+    grid-template-columns: repeat(4, 1fr);
+}
+.memory-item{
+    cursor: pointer;
+    transition: all ease 0.3s;
+}
+.memory-item:hover{
+    scale: 1.05;
+}
+.memory-page .btn{
+    text-decoration: none;
+    color: #f3d5d8;
+    background-color: #485d80;
+    border: 1px solid transparent;
+    padding: 10px;
+    margin: 10px;
+    justify-self: center;
+    font-family: 'Montserrat';
+    border-radius: 20px;
+    transition: all ease 0.3s;
+}
+.memory-page .btn:hover{
+    border-radius: 10px;
+    background-color: transparent;
+    border: 1px solid #485d80;
+    color: #485d80;
+}
+.lightbox{
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.85);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    opacity: 0;
+    visibility: hidden;
+
+    transition: .3s ease;
+    z-index: 9999;
+}
+.lightbox.show{
+    opacity: 1;
+    visibility: visible;
+}
+.lightbox img{
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 20px;
+    transform: scale(.8);
+    transition: .3s;
+}
+.lightbox.show img{
+    transform: scale(1);
+}
+.close{
+    position: absolute;
+    top: 30px;
+    right: 40px;
+    color: white;
+    font-size: 42px;
+    cursor: pointer;
+    user-select: none;
+}
+.prev,.next{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: rgba(255,255,255,.2);
+    color: white;
+    font-size: 35px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: .3s;
+}
+.prev:hover,
+.next:hover{
+    background: rgba(255,255,255,.4);
+}
+.prev{
+    left: 30px;
+}
+.next{
+    right: 30px;
+}
 .fade-out {
     animation: fadeDown 0.5s ease forwards;
 }
@@ -541,5 +712,54 @@ h1{
     }
     .flower-surat{
         display: none;
+    }
+
+    /* musik */
+    .musik-page{
+        padding: 20px;
+        padding-top: 0;
+    }
+    .musik-page h1{
+        position: relative;
+        max-width: 100vh;
+        top: 0;
+        left: 0;
+    }
+    .player{
+        flex-direction: column;
+        width: 90% !important;
+        justify-content: center;
+        align-self: center;
+        align-content: center;
+        height: max-content;
+        padding: 0;
+    }
+    .player #cover{
+        width: 250px;
+        align-self: center;
+        align-items: center;
+    }
+    .player .container-cover{
+        display: flex;
+        justify-content: center;
+        border-radius: 20px 20px 0px 0px;
+        padding: 10px;
+    }
+    .player h2{
+        font-size: 36px;
+        margin: 0;
+    }
+    .player p{
+        font-size: 20px;
+        margin: 0;
+    }
+    .music .time input{
+        width: 80%;
+    }
+
+    /* memory */
+        
+    .beforePKL .memory-item-container{
+        grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
     }
 }
